@@ -5,9 +5,8 @@ using System.Collections.Generic;
 
 namespace CleanArchMvc.Domain.Entities
 {
-    public sealed class Category
+    public sealed class Category : Entity
     {
-        public int Id { get; private set; }
         public string Name { get; private set; }
         public Category(string name)
         {
@@ -17,6 +16,11 @@ namespace CleanArchMvc.Domain.Entities
         {
             DomainExceptionValidation.When(id < 0, "Invalid Id Value");
             Id = id;
+            ValidateDomain(name);
+        }
+
+        public void Update(string name)
+        {
             ValidateDomain(name);
         }
 
