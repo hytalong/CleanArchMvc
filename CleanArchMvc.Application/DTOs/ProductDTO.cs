@@ -3,43 +3,42 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CleanArchMvc.Application.DTOs
+namespace CleanArchMvc.Application.DTOs;
+
+public class ProductDTO
 {
-    public class ProductDTO
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        [Required(ErrorMessage = "The Name is Required")]
-        [MinLength(3)]
-        [MaxLength(100)]
-        [DisplayName("Name")]
-        public string Name { get; set; }
+    [Required(ErrorMessage = "The Name is Required")]
+    [MinLength(3)]
+    [MaxLength(100)]
+    [DisplayName("Name")]
+    public string Name { get; set; }
 
-        [Required(ErrorMessage = "The Description is Required")]
-        [MinLength(5)]
-        [MaxLength(200)]
-        [DisplayName("Description")]
-        public string Description { get; set; }
+    [Required(ErrorMessage = "The Description is Required")]
+    [MinLength(5)]
+    [MaxLength(200)]
+    [DisplayName("Description")]
+    public string Description { get; set; }
 
-        [Required(ErrorMessage = "The Price is Required")]
-        [Column(TypeName = "decimal(18,2")]
-        [DisplayFormat(DataFormatString = "{0:C2}")]
-        [DataType(DataType.Currency)]
-        [DisplayName("Price")]
-        public decimal Price { get; private set; }
+    [Required(ErrorMessage = "The Price is Required")]
+    [Column(TypeName = "decimal(18,2")]
+    [DisplayFormat(DataFormatString = "{0:C2}")]
+    [DataType(DataType.Currency)]
+    [DisplayName("Price")]
+    public decimal Price { get; private set; }
 
-        [Required(ErrorMessage = "The Price is Stock")]
-        [Range(1, 9999)]
-        [DisplayName("Stock")]
-        public int Stock { get; private set; }
+    [Required(ErrorMessage = "The Price is Stock")]
+    [Range(1, 9999)]
+    [DisplayName("Stock")]
+    public int Stock { get; private set; }
 
-        [MaxLength(250)]
-        [Required(ErrorMessage = "The Price is Image")]
-        public string Image { get; private set; }
+    [MaxLength(250)]
+    [Required(ErrorMessage = "The Price is Image")]
+    public string Image { get; private set; }
 
-        public Category Category { get; set; }
+    public Category Category { get; set; }
 
-        [DisplayName("Categories")]
-        public int CategoryId { get; set; }
-    }
+    [DisplayName("Categories")]
+    public int CategoryId { get; set; }
 }
