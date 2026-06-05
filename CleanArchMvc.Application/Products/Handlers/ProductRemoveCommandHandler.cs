@@ -5,7 +5,7 @@ using MediatR;
 
 namespace CleanArchMvc.Application.Products.Handlers;
 
-public class ProductRemoveCommandHandler : IRequestHandler<ProductRemoveCommnd, Product>
+public class ProductRemoveCommandHandler : IRequestHandler<ProductRemoveCommand, Product>
 {
     private readonly IProductRepository _productRepository;
     public ProductRemoveCommandHandler(IProductRepository productRepository)
@@ -14,7 +14,7 @@ public class ProductRemoveCommandHandler : IRequestHandler<ProductRemoveCommnd, 
             throw new ApplicationException(nameof(productRepository));
     }
 
-    public async Task<Product> Handle(ProductRemoveCommnd request, CancellationToken cancellationToken)
+    public async Task<Product> Handle(ProductRemoveCommand request, CancellationToken cancellationToken)
     {
         var product = await _productRepository.GetByIdAsync(request.Id);
 
