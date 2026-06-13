@@ -26,18 +26,19 @@ public class ProductDTO
     [DisplayFormat(DataFormatString = "{0:C2}")]
     [DataType(DataType.Currency)]
     [DisplayName("Price")]
-    public decimal Price { get; private set; }
+    public decimal Price { get; set; }
 
-    [Required(ErrorMessage = "The Price is Stock")]
+    [Required(ErrorMessage = "The Price is Required")]
     [Range(1, 9999)]
     [DisplayName("Stock")]
-    public int Stock { get; private set; }
+    public int Stock { get; set; }
 
     [MaxLength(250)]
-    [Required(ErrorMessage = "The Price is Image")]
-    public string Image { get; private set; }
+    [Required(ErrorMessage = "The Price is Required")]
+    [DisplayName("Product Image")]
+    public string Image { get; set; }
 
-    public Category Category { get; set; }
+    public Category? Category { get; set; }
 
     [DisplayName("Categories")]
     public int CategoryId { get; set; }
