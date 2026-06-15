@@ -67,4 +67,25 @@ public class ProductsController : Controller
         return View(productDTO);
     }
 
+    [HttpGet()]
+    public async Task<IActionResult> Delete(int? id)
+    {
+        if (id == null) 
+            return NotFound();
+
+        var productDTO = await _productService.GetById(id);
+        if (productDTO == null) 
+            return NotFound();
+
+        return View(productDTO);
+    }
+
+    [HttpPost(), ActionName("Delete")]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        await _productService.Remove(id);
+        return RedirectToAction("Index");
+    }
+
+
 }
