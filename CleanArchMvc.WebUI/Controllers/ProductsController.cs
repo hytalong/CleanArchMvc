@@ -40,4 +40,31 @@ public class ProductsController : Controller
         }
         return View(productDTO);
     }
+
+    [HttpGet()]
+    public async Task<IActionResult> Edit(int? id)
+    {
+        if (id == null) 
+            return NotFound();
+
+        var productDTO = await _productService.GetById(id);
+        if (productDTO == null) 
+            return NotFound();
+
+        ViewBag.CategoryId =
+            new SelectList(await _categoryService.GetCategories(), "Id", "Name", productDTO.CategoryId);
+        return View(productDTO);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(ProductDTO productDTO)
+    {
+        if (ModelState.IsValid)
+        {
+            await _productService.Update(productDTO);
+            return RedirectToAction(nameof(Index));
+        }
+        return View(productDTO);
+    }
+
 }
