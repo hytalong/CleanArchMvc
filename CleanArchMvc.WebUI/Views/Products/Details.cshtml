@@ -1,0 +1,40 @@
+﻿@model CleanArchMvc.Application.DTOs.ProductDTO
+
+<h3>Product Details</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dl class="col-sm-2">@Html.DisplayNameFor(model => model.Name)</dl>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Name)dd>
+
+        <dl class="col-sm-2">@Html.DisplayNameFor(model => model.Description)</dl>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Description)</dd>
+
+        <dl class="col-sm-2">@Html.DisplayNameFor(model => model.Image)</dl>
+        <dd class="col-sm-10">
+            @if (!ViewBag.ImageExists)
+            {
+                <img src="~/images/noimage.png" class="rounded-circle" 
+                height="300" width="300" asp-append-version="true" />
+            }
+            else
+            {
+                <img src="~/images/@Model.Image" class="rounded-circle" 
+                height="300" width="300" asp-append-version="true" />
+            }
+        </dd>
+
+        <dl class="col-sm-2">@Html.DisplayNameFor(model => model.Price)</dl>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Price)</dd>
+
+        <dl class="col-sm-2">@Html.DisplayNameFor(model => model.Stock)</dl>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Stock)</dd>
+
+        <dl class="col-sm-2">@Html.DisplayNameFor(model => model.CategoryId)</dl>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.CategoryId)</dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
