@@ -93,17 +93,27 @@ public class ProductsController : Controller
     [HttpGet()]
     public async Task<IActionResult> Details(int? id)
     {
-        if (id == null) 
+        if (id == null)
             return NotFound();
 
         var productDTO = await _productService.GetById(id);
-        if (productDTO == null) 
+
+        if (productDTO == null)
             return NotFound();
 
-        var wwwroot = _environment.WebRootPath;
-        var image = Path.Combine(wwwroot, "images\\", productDTO.Image);
-        var exists = System.IO.File.Exists(image);
-        ViewBag.ImageExists = exists;
+        if (string.IsNullOrWhiteSpace(productDTO.Image))
+        {
+            ViewBag.ImageExists = false;
+        }
+        else
+        {
+            var imagePath = Path.Combine(
+                _environment.WebRootPath,
+                "images",
+                productDTO.Image);
+
+            ViewBag.ImageExists = System.IO.File.Exists(imagePath);
+        }
 
         return View(productDTO);
     }
