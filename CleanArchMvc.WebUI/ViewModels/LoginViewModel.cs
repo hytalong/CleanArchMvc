@@ -13,5 +13,5 @@ public class LoginViewModel
         "{1} characters long.", MinimumLength = 10)]
     [DataType(DataType.Password)]
     public string Password { get; set; }
-    public string ReturnUrl { get; set; }
+    public string ReturnUrl { get; set; } = string.Empty;
 }

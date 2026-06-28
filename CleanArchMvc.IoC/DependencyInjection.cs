@@ -29,7 +29,7 @@ public static class DependencyInjection
             .AddDefaultTokenProviders();
 
         services.ConfigureApplicationCookie(options =>
-                 options.AccessDeniedPath = "Account/Login");
+                 options.AccessDeniedPath = "/Account/Login");
 
         services.AddScoped<ICategoryRepositry, CategoryRespository>();
         services.AddScoped<IProductRepository, ProductRepository>();

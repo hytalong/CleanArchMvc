@@ -64,6 +64,6 @@ public class AccountController : Controller
     public async Task<IActionResult> Logout()
     {
         await _authenticate.Logout();
-        return RedirectToAction("/Account/Login");
+        return Redirect("/Account/Login");
     }
 }

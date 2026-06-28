@@ -1,4 +1,5 @@
-﻿using CleanArchMvc.IoC;
+﻿using CleanArchMvc.Domain.Account;
+using CleanArchMvc.IoC;
 
 namespace CleanArchMvc.WebUI;
 
@@ -19,7 +20,8 @@ public class Startup
     }
 
     // Configurar pipeline HTTP
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
+        ISeedUserRoleInitial seedUserRoleInitial)
     {
         if (!env.IsDevelopment())
         {
@@ -32,6 +34,10 @@ public class Startup
 
         app.UseRouting();
 
+        seedUserRoleInitial.SeedRoles();
+        seedUserRoleInitial.SeedUsers();
+
+        app.UseAuthentication();
         app.UseAuthorization();
 
         app.UseEndpoints(endpoints =>
