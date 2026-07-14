@@ -25,9 +25,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-//seedUserRoleInitial.SeedRoles();
-//seedUserRoleInitial.SeedUsers();
-SeedUserRole(app);
+// Executa o seeding de roles/users de forma assíncrona
+await SeedUserRoleAsync(app);
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -38,14 +37,14 @@ app.MapControllerRoute(
 
 app.Run();
 
-void SeedUserRole(IApplicationBuilder app)
+async System.Threading.Tasks.Task SeedUserRoleAsync(IApplicationBuilder app)
 {
     using (var serviceScope = app.ApplicationServices.CreateScope())
     {
         var seed = serviceScope.ServiceProvider;
         var seedUserRoleInitial = seed
             .GetRequiredService<ISeedUserRoleInitial>();
-        seedUserRoleInitial.SeedRoles();
-        seedUserRoleInitial.SeedUsers();
+        await seedUserRoleInitial.SeedRolesAsync();
+        await seedUserRoleInitial.SeedUsersAsync();
     }
 }

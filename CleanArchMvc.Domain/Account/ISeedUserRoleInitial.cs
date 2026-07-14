@@ -1,8 +1,10 @@
-﻿namespace CleanArchMvc.Domain.Account
+﻿using System.Threading.Tasks;
+
+namespace CleanArchMvc.Domain.Account
 {
     public interface ISeedUserRoleInitial
     {
-        void SeedUsers();
-        void SeedRoles();
+        Task SeedUsersAsync();
+        Task SeedRolesAsync();
     }
 }

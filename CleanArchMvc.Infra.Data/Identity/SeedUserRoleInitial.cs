@@ -1,5 +1,7 @@
 ﻿using CleanArchMvc.Domain.Account;
 using Microsoft.AspNetCore.Identity;
+using System;
+using System.Threading.Tasks;
 
 namespace CleanArchMvc.Infra.Data.Identity;
 
@@ -13,62 +15,62 @@ public class SeedUserRoleInitial : ISeedUserRoleInitial
         _roleManager = roleManager;
         _userManager = userManager;
     }
-    public void SeedUsers()
+
+    public async Task SeedUsersAsync()
     {
-        if (_userManager.FindByEmailAsync("usuario@localhost").Result == null)
+        if (await _userManager.FindByEmailAsync("usuario@localhost") == null)
         {
-            ApplicationUser user = new ApplicationUser();
-            user.UserName = "usuario@localhost";
-            user.Email = "usuario@localhost";
-            user.NormalizedUserName = "USUARIO@LOCALHOST";
-            user.NormalizedEmail = "USUARIO@LOCALHOST";
-            user.EmailConfirmed = true;
-            user.LockoutEnabled = false;
-            user.SecurityStamp = Guid.NewGuid().ToString();
-
-            IdentityResult result = _userManager.CreateAsync(user, "Numsey#2021").Result;
-
-            if(result.Succeeded)
+            var user = new ApplicationUser
             {
-                _userManager.AddToRoleAsync(user, "User").Wait();
+                UserName = "usuario@localhost",
+                Email = "usuario@localhost",
+                NormalizedUserName = "USUARIO@LOCALHOST",
+                NormalizedEmail = "USUARIO@LOCALHOST",
+                EmailConfirmed = true,
+                LockoutEnabled = false,
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
+
+            var result = await _userManager.CreateAsync(user, "Numsey#2021");
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, "User");
             }
         }
 
-        if (_userManager.FindByEmailAsync("admin@localhost").Result == null)
+        if (await _userManager.FindByEmailAsync("admin@localhost") == null)
         {
-            ApplicationUser user = new ApplicationUser();
-            user.UserName = "admin@localhost";
-            user.Email = "admin@localhost";
-            user.NormalizedUserName = "ADMIN@LOCALHOST";
-            user.NormalizedEmail = "ADMIN@LOCALHOST";
-            user.EmailConfirmed = true;
-            user.LockoutEnabled = false;
-            user.SecurityStamp = Guid.NewGuid().ToString();
+            var user = new ApplicationUser
+            {
+                UserName = "admin@localhost",
+                Email = "admin@localhost",
+                NormalizedUserName = "ADMIN@LOCALHOST",
+                NormalizedEmail = "ADMIN@LOCALHOST",
+                EmailConfirmed = true,
+                LockoutEnabled = false,
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
 
-            IdentityResult result = _userManager.CreateAsync(user, "Numsey#2021").Result;
-
+            var result = await _userManager.CreateAsync(user, "Numsey#2021");
             if (result.Succeeded)
             {
-                _userManager.AddToRoleAsync(user, "Admin").Wait();
+                await _userManager.AddToRoleAsync(user, "Admin");
             }
         }
     }
-    public void SeedRoles()
+
+    public async Task SeedRolesAsync()
     {
-        if(!_roleManager.RoleExistsAsync("User").Result)
+        if (!await _roleManager.RoleExistsAsync("User"))
         {
-            IdentityRole role = new IdentityRole();
-            role.Name = "User";
-            role.NormalizedName = "USER";
-            IdentityResult roleResult = _roleManager.CreateAsync(role).Result;
+            var role = new IdentityRole { Name = "User", NormalizedName = "USER" };
+            await _roleManager.CreateAsync(role);
         }
 
-        if (!_roleManager.RoleExistsAsync("Admin").Result)
+        if (!await _roleManager.RoleExistsAsync("Admin"))
         {
-            IdentityRole role = new IdentityRole();
-            role.Name = "Admin";
-            role.NormalizedName = "ADMIN";
-            IdentityResult roleResult = _roleManager.CreateAsync(role).Result;
+            var role = new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" };
+            await _roleManager.CreateAsync(role);
         }
     }
 
