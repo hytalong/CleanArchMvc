@@ -1,3 +1,4 @@
+using CleanArchMvc.IoC;
 using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
