@@ -17,6 +17,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 
     public DbSet<Category> Categories { get; set; }
     public DbSet<Product> Products { get; set; }
+    public DbSet<CleanArchMvc.Infra.Data.Entities.ProcessedMessage> ProcessedMessages { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

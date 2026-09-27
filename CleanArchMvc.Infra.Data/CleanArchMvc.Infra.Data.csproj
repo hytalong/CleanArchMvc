@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CleanArchMvc.Domain\CleanArchMvc.Domain.csproj" />
+    <ProjectReference Include="..\src\CleanArchMvc.Messaging.Abstractions\CleanArchMvc.Messaging.Abstractions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -12,6 +12,7 @@ using AutoMapper;
 using CleanArchMvc.Infra.Data.Identity;
 using Microsoft.AspNetCore.Identity;
 using CleanArchMvc.Domain.Account;
+using CleanArchMvc.Messaging.Infrastructure;
 
 namespace CleanArchMvc.IoC;
 
@@ -40,13 +41,19 @@ public static class DependencyInjection
         services.AddScoped<ISeedUserRoleInitial,  SeedUserRoleInitial>();
 
         services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
+        services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
 
+        // Se preferir usar EF-based idempotency store em vez do in-memory, registrar aqui:
+        // services.AddScoped<IIdempotencyStore, EfIdempotencyStore>();
         var myhandlers = AppDomain.CurrentDomain.Load("CleanArchMvc.Application");
 
         services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssembly(myhandlers);
         });
+
+        // Registrar infraestrutura de mensageria em memória (dev/tests). Não liga brokers.
+        services.AddInMemoryMessaging();
 
         return services;
     }

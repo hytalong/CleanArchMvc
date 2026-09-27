@@ -1,0 +1,16 @@
+{
+  "Messaging": {
+    "Kafka": {
+      "BootstrapServers": "localhost:9092",
+      "ClientId": "cleanarchmvc",
+      "KafkaMaxRetries": 3,
+      "RetryBackoff": "00:00:02"
+    },
+    "RabbitMQ": {
+      "HostName": "localhost",
+      "Port": 5672,
+      "UserName": "guest",
+      "Password": "guest"
+    }
+  }
+}
